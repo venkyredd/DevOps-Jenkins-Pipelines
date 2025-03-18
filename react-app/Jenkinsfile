@@ -5,7 +5,7 @@ pipeline {
         EC2_USER = 'ubuntu'
         EC2_IP = '3.110.207.48'  // Replace with your EC2 Public IP
         APP_DIR = '/home/ubuntu/react-app'  // Deployment folder on EC2
-        SSH_KEY = VENSNR01  // Jenkins stored SSH key
+        SSH_KEY = 58658932-14f2-403a-a881-91785c3fbf94 // Jenkins stored SSH key
     }
 
     stages {
