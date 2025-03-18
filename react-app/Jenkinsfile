@@ -1,0 +1,153 @@
+pipeline {
+    agent any
+
+    environment {
+        EC2_USER = 'ubuntu'
+        EC2_IP = '3.110.207.48'  // Replace with your EC2 Public IP
+        APP_DIR = '/home/ubuntu/react-app'  // Deployment folder on EC2
+        SSH_KEY = VENSNR01  // Jenkins stored SSH key
+    }
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git branch: 'main', url: 'https://github.com/venkyredd/DevOps-Jenkins-Pipelines.git'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm install'
+            }
+        }
+
+        stage('Build React App') {
+            steps {
+                sh 'npm run build'
+            }
+        }
+
+        stage('Deploy to EC2') {
+            steps {
+                script {
+                    sshagent(['ec2-ssh-key']) {
+                        sh """
+                        ssh -o StrictHostKeyChecking=no ${EC2_USER}@${EC2_IP} << EOF
+                            sudo apt update -y
+                            sudo apt install -y nodejs npm
+                            mkdir -p ${APP_DIR}
+                            cd ${APP_DIR}
+                            git clone https://github.com/venkyredd/DevOps-Jenkins-Pipelines.git || git -C ${APP_DIR} pull
+                            npm install
+                            npm run build
+                            nohup npx serve -s build -l 3000 > app.log 2>&1 &
+                        EOF
+                        """
+                    }
+                }
+            }
+        }
+    }
+}
+pipeline {
+    agent any
+
+    environment {
+        EC2_USER = 'ubuntu'
+        EC2_IP = '3.110.207.48'  // Replace with your EC2 Public IP
+        APP_DIR = '/home/ubuntu/react-app'  // Deployment folder on EC2
+        SSH_KEY = VENSNR01  // Jenkins stored SSH key
+    }
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git branch: 'main', url: 'https://github.com/venkyredd/DevOps-Jenkins-Pipelines.git'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm install'
+            }
+        }
+
+        stage('Build React App') {
+            steps {
+                sh 'npm run build'
+            }
+        }
+
+        stage('Deploy to EC2') {
+            steps {
+                script {
+                    sshagent(['ec2-ssh-key']) {
+                        sh """
+                        ssh -o StrictHostKeyChecking=no ${EC2_USER}@${EC2_IP} << EOF
+                            sudo apt update -y
+                            sudo apt install -y nodejs npm
+                            mkdir -p ${APP_DIR}
+                            cd ${APP_DIR}
+                            git clone https://github.com/venkyredd/DevOps-Jenkins-Pipelines.git || git -C ${APP_DIR} pull
+                            npm install
+                            npm run build
+                            nohup npx serve -s build -l 3000 > app.log 2>&1 &
+                        EOF
+                        """
+                    }
+                }
+            }
+        }
+    }
+}
+pipeline {
+    agent any
+
+    environment {
+        EC2_USER = 'ubuntu'
+        EC2_IP = '3.110.207.48'  // Replace with your EC2 Public IP
+        APP_DIR = '/home/ubuntu/react-app'  // Deployment folder on EC2
+        SSH_KEY = VENSNR01  // Jenkins stored SSH key
+    }
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git branch: 'main', url: 'https://github.com/venkyredd/DevOps-Jenkins-Pipelines.git'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm install'
+            }
+        }
+
+        stage('Build React App') {
+            steps {
+                sh 'npm run build'
+            }
+        }
+
+        stage('Deploy to EC2') {
+            steps {
+                script {
+                    sshagent(['ec2-ssh-key']) {
+                        sh """
+                        ssh -o StrictHostKeyChecking=no ${EC2_USER}@${EC2_IP} << EOF
+                            sudo apt update -y
+                            sudo apt install -y nodejs npm
+                            mkdir -p ${APP_DIR}
+                            cd ${APP_DIR}
+                            git clone https://github.com/venkyredd/DevOps-Jenkins-Pipelines.git || git -C ${APP_DIR} pull
+                            npm install
+                            npm run build
+                            nohup npx serve -s build -l 3000 > app.log 2>&1 &
+                        EOF
+                        """
+                    }
+                }
+            }
+        }
+    }
+}
